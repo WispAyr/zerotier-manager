@@ -36,20 +36,30 @@ export default function NetworksPage() {
     const [newIpStart, setNewIpStart] = useState('10.0.0.1');
     const [newIpEnd, setNewIpEnd] = useState('10.0.0.254');
     const [newRoute, setNewRoute] = useState('10.0.0.0/24');
-    const token = typeof window !== 'undefined' ? getCentralToken() : null;
+    const [token] = useState(() => typeof window !== 'undefined' ? getCentralToken() : null);
+    const [error, setError] = useState('');
 
     const fetchNetworks = useCallback(async () => {
         if (!token) return;
         setLoading(true);
+        setError('');
         try {
             const nets = await centralApi.listNetworks(token);
             setNetworks(nets || []);
         } catch (err) {
-            console.error(err);
+            const msg = err instanceof Error ? err.message : String(err);
+            const isAuth = msg.includes('Access Denied') || msg.includes('401') || msg.includes('403');
+            if (isAuth) {
+                setError('Access Denied — your API token may be invalid or expired. Update it in Settings.');
+                addToast('API token rejected by ZeroTier Central. Check Settings.', 'error');
+            } else {
+                setError(`Failed to load networks: ${msg}`);
+                addToast(`Failed to load networks: ${msg}`, 'error');
+            }
         } finally {
             setLoading(false);
         }
-    }, [token]);
+    }, [token, addToast]);
 
     useEffect(() => { fetchNetworks(); }, [fetchNetworks]);
 
@@ -111,6 +121,14 @@ export default function NetworksPage() {
                         <div className="help-box warning">
                             <div className="help-title">⚠️ No API Token</div>
                             Add your Central API token in <a href="/settings">Settings</a> to manage networks.
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="help-box warning" style={{ marginBottom: 16 }}>
+                            <div className="help-title">⚠️ Error</div>
+                            {error}{' '}
+                            <a href="/settings" style={{ color: 'var(--accent-blue)' }}>Go to Settings →</a>
                         </div>
                     )}
 
