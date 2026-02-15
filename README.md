@@ -63,7 +63,7 @@ Built-in [Model Context Protocol](https://modelcontextprotocol.io) server for AI
 ### Install & Run
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/zerotier.git
+git clone https://github.com/WispAyr/zerotier-manager.git
 cd zerotier
 npm install
 npm run dev
@@ -106,7 +106,7 @@ GitHub Actions runs automatically on every push and PR to `main`:
 - ✅ Production build (next build)
 ```
 
-[![CI](https://github.com/YOUR_USERNAME/zerotier/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/zerotier/actions)
+[![CI](https://github.com/WispAyr/zerotier-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/WispAyr/zerotier-manager/actions)
 
 ---
 
