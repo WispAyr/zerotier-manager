@@ -37,6 +37,7 @@ const navSections = [
         items: [
             { href: '/diagnostics', icon: '🔧', label: 'Diagnostics' },
             { href: '/dns', icon: '🌍', label: 'DNS Config' },
+            { href: '/downloads', icon: '📥', label: 'Downloads' },
             { href: '/knowledge', icon: '📚', label: 'Knowledge Base' },
         ],
     },

@@ -5,12 +5,14 @@ import Sidebar from '@/components/Sidebar';
 import { runDiagnostics, getCentralToken } from '@/lib/api-client';
 
 interface DiagIssue {
+    id: string;
     severity: 'critical' | 'warning' | 'info';
-    type: string;
-    message: string;
-    nodeId?: string;
-    networkId?: string;
-    details?: Record<string, unknown>;
+    category: string;
+    title: string;
+    description: string;
+    recommendation: string;
+    affectedNode?: string;
+    affectedNetwork?: string;
 }
 
 interface DiagReport {
@@ -123,13 +125,14 @@ export default function DiagnosticsPage() {
                                                 <div className={`alert-severity ${issue.severity}`} />
                                                 <div className="alert-content">
                                                     <div className="alert-title">
-                                                        {issue.type.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
+                                                        {issue.title}
                                                     </div>
-                                                    <div className="alert-desc">{issue.message}</div>
-                                                    {(issue.nodeId || issue.networkId) && (
+                                                    <div className="alert-desc">{issue.description}</div>
+                                                    {issue.recommendation && <div style={{ marginTop: 4, fontSize: 12, color: 'var(--text-secondary)' }}>💡 {issue.recommendation}</div>}
+                                                    {(issue.affectedNode || issue.affectedNetwork) && (
                                                         <div style={{ marginTop: 4, display: 'flex', gap: 8 }}>
-                                                            {issue.nodeId && <span className="badge badge-gray" style={{ fontFamily: 'var(--font-mono)', fontSize: 10 }}>Node: {issue.nodeId}</span>}
-                                                            {issue.networkId && <span className="badge badge-blue" style={{ fontFamily: 'var(--font-mono)', fontSize: 10 }}>Net: {issue.networkId}</span>}
+                                                            {issue.affectedNode && <span className="badge badge-gray" style={{ fontFamily: 'var(--font-mono)', fontSize: 10 }}>Node: {issue.affectedNode}</span>}
+                                                            {issue.affectedNetwork && <span className="badge badge-blue" style={{ fontFamily: 'var(--font-mono)', fontSize: 10 }}>Net: {issue.affectedNetwork}</span>}
                                                         </div>
                                                     )}
                                                 </div>

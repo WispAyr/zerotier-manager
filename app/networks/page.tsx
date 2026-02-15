@@ -130,7 +130,7 @@ export default function NetworksPage() {
                                 <div key={net.id} className="card fade-in">
                                     <div className="card-header">
                                         <div>
-                                            <h3 style={{ fontSize: 17 }}>{net.config.name || 'Unnamed'}</h3>
+                                            <h3 style={{ fontSize: 17 }}><a href={`/networks/${net.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>{net.config.name || 'Unnamed'}</a></h3>
                                             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-tertiary)', marginTop: 2 }}>
                                                 {net.id}
                                             </div>

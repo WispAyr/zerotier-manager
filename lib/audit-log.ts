@@ -24,7 +24,10 @@ export type AuditAction =
     | 'device_remove'
     | 'token_update'
     | 'token_clear'
-    | 'data_clear';
+    | 'data_clear'
+    | 'network_nudge'
+    | 'member_nudge'
+    | 'peer_refresh';
 
 const STORAGE_KEY = 'zt-audit-log';
 const MAX_ENTRIES = 500;
@@ -86,6 +89,9 @@ export const actionLabels: Record<AuditAction, string> = {
     token_update: 'API Token Updated',
     token_clear: 'API Token Cleared',
     data_clear: 'Data Cleared',
+    network_nudge: 'Network Nudged',
+    member_nudge: 'Member Nudged',
+    peer_refresh: 'Peers Refreshed',
 };
 
 export const categoryIcons: Record<AuditEntry['category'], string> = {
